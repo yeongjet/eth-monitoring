@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  redis:
+    image: redis:7.2.4
+    networks:
+      - eth-monitoring-net
+    restart: unless-stopped
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+  pulsar:
+    image: apachepulsar/pulsar:3.2.1
+    networks:
+      - eth-monitoring-net
+    restart: unless-stopped
+    ports:
+      - 6650:6650
+      - 8080:8080 
+    volumes:
+      - pulsardata:/pulsar/data
+      - pulsarconf:/pulsar/conf
+networks:
+  eth-monitoring-net:
+    name: eth-monitoring-net
+
+volumes:
+  redisdata:
+  pulsardata:
+  pulsarconf:

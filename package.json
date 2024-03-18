@@ -1,19 +1,51 @@
 {
-  "name": "eth-monitoring",
-  "version": "1.0.0",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "yeongjet",
-  "dependencies": {
-    "@nestjs/common": "^10.3.3",
-    "@nestjs/core": "^10.3.3",
-    "reflect-metadata": "^0.2.1",
-    "rxjs": "^7.8.1",
-    "web3": "^4.6.0"
-  },
-  "devDependencies": {
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.2"
-  }
+    "name": "eth-monitoring",
+    "version": "1.0.0",
+    "scripts": {
+        "config:husky": "npx husky init && echo \"npx --no-install lint-staged\" > .husky/pre-commit",
+        "generate:config-interface": "node script/generate-config-interface.js",
+        "start:local": "cross-env NODE_ENV=local ts-node -r tsconfig-paths/register src/main.ts",
+        "prepare": "husky"
+    },
+    "author": "yeongjet",
+    "dependencies": {
+        "@nestjs/common": "^10.3.3",
+        "@nestjs/core": "^10.3.3",
+        "@nestjs/platform-fastify": "^10.3.3",
+        "@nestjs/schedule": "^4.0.1",
+        "find-root": "^1.1.0",
+        "json5": "^2.2.3",
+        "redis": "^4.6.13",
+        "reflect-metadata": "^0.2.1",
+        "rxjs": "^7.8.1",
+        "web3": "^4.6.0"
+    },
+    "devDependencies": {
+        "@types/find-root": "^1.1.4",
+        "@typescript-eslint/eslint-plugin": "^6.21.0",
+        "@typescript-eslint/parser": "^6.21.0",
+        "cross-env": "^7.0.3",
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.1.3",
+        "husky": "^9.0.11",
+        "lint-staged": "^15.2.2",
+        "prettier": "^3.2.5",
+        "prettier-eslint": "^16.3.0",
+        "quicktype-core": "^23.0.106",
+        "ts-node": "^10.9.2",
+        "tsconfig-paths": "^4.2.0",
+        "typescript": "^5.4.2"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "**/*.{js,ts,json}": [
+            "eslint ./src --fix",
+            "prettier --write ./src"
+        ]
+    }
 }
